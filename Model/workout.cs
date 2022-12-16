@@ -1,90 +1,93 @@
-import uuid from 'uuid/v4';
-
-// Contains a single excerise, for example bench press
-public class excerise
+namespace WorkoutTracker.Model
 {
-    public int Id { get; }
-    public string Name { get; }
-    public list<string> MuscleGroup { get; }
-    public excerise(int id, string name, list<string> muscleGroup, string description)
+    using System;
+    using System.Collections.Generic;
+    // Contains a single excercise, for example bench press
+    public class Excercise
     {
-        Id = id;
-        Name = name;
-        MuscleGroup = muscleGroup;
+        public int Id { get; }
+        public string Name { get; }
+        public list<string> MuscleGroup { get; }
+        public Excercise(int id, string name, list<string> muscleGroup, string description)
+        {
+            Id = NewGuid();
+            Name = name;
+            MuscleGroup = muscleGroup;
+        }
     }
-}
 
-// Contains a single excerise with reps and weight, for example 10 reps with 20kg
-public class exceriseSet
-{
-    public int Id { get; }
-    public excerise Excerise { get; }
-    public int Reps { get; }
-    public float Weight { get; }
-    public exceriseSet(excerise excerise, int reps, float weight)
+    // Contains a single excercise with reps and weight, for example 10 reps with 20kg
+    public class ExcerciseSet
     {
-        Id = uuid();
-        Excerise = excerise;
-        Reps = reps;
-        Weight = weight;
+        public int Id { get; }
+        public Excercise Excercise { get; }
+        public int Reps { get; }
+        public float Weight { get; }
+        public excerciseSet(excercise excercise, int reps, float weight)
+        {
+            Id = NewGuid();
+            Excercise = excercise;
+            Reps = reps;
+            Weight = weight;
+        }
+        public void changeReps(int reps)
+        {
+            Reps = reps;
+        }
+        public void changeWeight(float weight)
+        {
+            Weight = weight;
+        }
     }
-    public void changeReps(int reps)
-    {
-        Reps = reps;
-    }
-    public void changeWeight(float weight)
-    {
-        Weight = weight;
-    }
-}
 
-// Contains a list of exceriseSets which represent a complete excerise
-// So every exceriseSet in this list is the same excerise, but with different reps and weights, 
-// for example 3 sets of 10 reps with 20kg
-public class completeExceriseSet
-{
-    public int Id { get; }
-    public List<exceriseSet> Excerise = new List<exceriseSet>();
-    public completeExceriseSet()
+    // Contains a list of excerciseSets which represent a complete excercise
+    // So every excerciseSet in this list is the same excercise, but with different reps and weights, 
+    // for example 3 sets of 10 reps with 20kg
+    public class CompleteexcerciseSet
     {
-        Id = uuid();
+        public int Id { get; }
+        public List<ExcerciseSet> excerciseSets = new List<excerciseSet>();
+        public CompleteexcerciseSet()
+        {
+            Id = NewGuid();
+        }
+        public void addexcercise(ExcerciseSet excercise)
+        {
+            excerciseSets.Add(excercise);
+        }
+        public void removeexcercise(ExcerciseSet excercise)
+        {
+            excercise.Remove(excercise);
+        }
     }
-    public void addExcerise(exceriseSet excerise)
-    {
-        Excerise.Add(excerise);
-    }
-    public void removeExcerise(exceriseSet excerise)
-    {
-        Excerise.Remove(excerise);
-    }
-}
 
 
-// Contains a list of completeExceriseSets which represent a complete workout
-// So every completeExceriseSet in this list is a different excerise.
-public class Workout
-{
-    public int Id { get; }
-    public List<completeExceriseSet> ExcerisesSets = new List<completeExceriseSet>();
-    public Workout()
+    // Contains a list of completeexcerciseSets which represent a complete workout
+    // So every completeexcerciseSet in this list is a different excercise.
+    public class Workout
     {
-        Id = uuid();
-    }
-    public void addExcerise(completeExceriseSet excerise)
-    {
-        ExcerisesSets.Add(excerise);
-    }
-    public void removeExcerise(completeExceriseSet excerise)
-    {
-        ExcerisesSets.Remove(excerise);
-    }
-    public completeExceriseSet getExceriseSet(int id)
-    {
-        return ExcerisesSets.Find(x => x.Id == id);
-    }
-    public void replaceExceriseSet(completeExceriseSet exceriseSet)
-    {
-        ExcerisesSets.Remove(getExceriseSet(exceriseSet.Id));
-        ExcerisesSets.Add(exceriseSet);
+        public int Id { get; }
+        public List<completeexcerciseSet> excercisesSets = new List<CompleteexcerciseSet>();
+        public Workout()
+        {
+            Id = NewGuid();
+        }
+        public void addexcercise(CompleteexcerciseSet excercise)
+        {
+            excercisesSets.Add(excercise);
+        }
+        public void removeexcercise(CompleteexcerciseSet excercise)
+        {
+            excercisesSets.Remove(excercise);
+        }
+        public CompleteexcerciseSet getexcerciseSet(int id)
+        {
+            return excercisesSets.Find(x => x.Id == id);
+        }
+        public void replaceexcerciseSet(CompleteexcerciseSet excerciseSet)
+        {
+            excercisesSets.Remove(getexcerciseSet(excerciseSet.Id));
+            excercisesSets.Add(excerciseSet);
+        }
     }
 }
