@@ -1,0 +1,33 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+*.suo
+*.user
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Visual Studio Code folders
+.history
+.vs
+
+# Visual Studio Code temporary files
+*.tmp
+*.tmp_proj
+*.bak
+*.tmp_proj.user
+
+# Visual Studio Code user preferences
+*.vscodeignore
